@@ -1,3 +1,3 @@
 # Poquito
 
-A lightweight game engine built with Pygame.
+A lightweight game engine built with Pygame..
