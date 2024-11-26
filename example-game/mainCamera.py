@@ -20,6 +20,6 @@ class MainCamera(Camera):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_KP_PLUS]:
-            self.zoom(1.01)
+            self.zoom(1.05)
         elif keys[pygame.K_KP_MINUS]:
-            self.zoom(0.99)
+            self.zoom(0.95)

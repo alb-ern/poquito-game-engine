@@ -28,15 +28,10 @@ def main():
     cam.referenceObject = character
 
     terrainSprite = pygame.image.load(os.path.join(base_path, "assets", "Terrain", "terrain.png"))
-    
-    terrain1 = Terrain(-160, 150, 160*2, 48*2, 0, terrainSprite)
-    scene.addGameObject(terrain1)
 
-    terrain2 = Terrain(-160, -150, 160*2, 48*2, 0, terrainSprite)
-    scene.addGameObject(terrain2)
-
-    terrain3 = Terrain( 300, 0, 160*2, 48*2, 0, terrainSprite)
-    scene.addGameObject(terrain3)
+    for i in range(10):
+        for j in range(10):
+            scene.addGameObject(Terrain(500*i-160+(j%2)*250, 160*j+30*j*j-150, 160*2, 48*2, 0, terrainSprite))
 
     characterCollider = CharacterCollider(["Terrain"], character)
     scene.addGameObject(characterCollider)
@@ -49,5 +44,6 @@ def main():
     game = Game((1280, 720), "Scene1", 60, 100, pygame.NOFRAME , (216,189,155))
     game.run()
 
+if __name__=="__main__":
+    main()
 
-main()

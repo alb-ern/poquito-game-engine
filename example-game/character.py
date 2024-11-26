@@ -15,10 +15,10 @@ class Character(AnimatedObject):
     def init(self):
         self.velocityY = 0
         self.velocityX = 0
-        self.gravity = 0.2
+        self.gravity = 0.4
         self.speed = 1
         self.maxSpeed = 7
-        self.jumpPower = 8
+        self.jumpPower = 12
         self.idleSpeed = 1
         self.collidedBottom = False
         self.collidedTop = False
