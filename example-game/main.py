@@ -29,9 +29,9 @@ def main():
 
     terrainSprite = pygame.image.load(os.path.join(base_path, "assets", "Terrain", "terrain.png"))
 
-    for i in range(10):
-        for j in range(10):
-            scene.addGameObject(Terrain(500*i-160+(j%2)*250, 160*j+30*j*j-150, 160*2, 48*2, 0, terrainSprite))
+    for i in range(3):
+        for j in range(3):
+            scene.addGameObject(Terrain(500*i-160+(j%2)*250, 500*j-150, 160*2, 160*2, 0, terrainSprite))
 
     characterCollider = CharacterCollider(["Terrain"], character)
     scene.addGameObject(characterCollider)

@@ -10,6 +10,31 @@ from core.animation import Animation
 from core.collider import Collider, CollisionSide
 from core.game import Game
 
+
+class CharacterCollider(Collider):
+
+
+
+    def onCollide(self):
+        print(self.collidedSides)
+        if (CollisionSide.LEFT in self.collidedSides):
+            self.referenceObject.collidedLeft = True
+        if (CollisionSide.RIGHT in self.collidedSides):
+            self.referenceObject.collidedRight = True
+
+        if (CollisionSide.TOP in self.collidedSides):
+            self.referenceObject.collidedBottom = True
+            self.referenceObject.velocityY = 0
+            self.referenceObject.y -= self.collidedTopLen - 1
+
+        if (CollisionSide.BOTTOM in self.collidedSides):
+            self.referenceObject.collidedTop = True
+            self.referenceObject.velocityY = 0
+            self.referenceObject.y -= self.collidedTopLen - 1
+
+
+
+
 class Character(AnimatedObject):
 
     def init(self):
@@ -22,7 +47,9 @@ class Character(AnimatedObject):
         self.idleSpeed = 1
         self.collidedBottom = False
         self.collidedTop = False
-        self.collidedHorizantal = False
+        self.collidedLeft = False
+        self.collidedRight = False
+
         self.setTag("Character")
 
         idleSpriteSheet = pygame.image.load(os.path.join(base_path, "assets", "character", "Idle.png"))
@@ -58,13 +85,16 @@ class Character(AnimatedObject):
             self.velocityX *= 0.9
         
 
-        if self.collidedBottom and jumped == False:        
+        if self.collidedBottom and not jumped:        
             self.velocityY = 0
         else:    
             self.velocityY += self.gravity
         
-        if self.collidedHorizantal and self.collidedBottom == False:        
-            self.velocityX = 0
+        if not self.collidedBottom: 
+            if self.collidedLeft and self.velocityX < 0:
+                self.velocityX = 0
+            if self.collidedRight and self.velocityX > 0:
+                self.velocityX = 0
         
         if self.velocityX > self.maxSpeed:
             self.velocityX = self.maxSpeed
@@ -92,23 +122,6 @@ class Character(AnimatedObject):
         self.collidedTop = False
         self.collidedHorizantal = False
 
-class CharacterCollider(Collider):
-    
-    def onCollide(self):
-        
-        if ((CollisionSide.LEFT in self.collidedSides) or (CollisionSide.RIGHT in self.collidedSides)):
-            self.referenceObject.collidedHorizantal = True
-        
-        if (CollisionSide.TOP in self.collidedSides):
-            self.referenceObject.collidedBottom = True
-            self.referenceObject.velocityY = 0
-            self.referenceObject.y -= self.collidedTopLen -1
-        
-        if (CollisionSide.BOTTOM in self.collidedSides): 
-            self.referenceObject.collidedTop = True
-            self.referenceObject.velocityY = 0
-            self.referenceObject.y -= self.collidedTopLen -1
-            
 
         
         
